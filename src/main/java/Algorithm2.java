@@ -34,9 +34,13 @@ public class Algorithm2 {
 //        System.out.println(isTheSame);
 //    }
 
-    public static int [] getHash(File imageFile) throws Exception {
-		//-----resize image
+	public static int [] getHash(File imageFile) throws Exception {
 		BufferedImage image = ImageIO.read(imageFile);
+		return getHash(image);
+	}
+
+    public static int [] getHash(BufferedImage image) throws Exception {
+		//-----resize image
         BufferedImage resizedImage = Utils.resizeImage(image, size, size);
 		
 		//-----convert to gray image

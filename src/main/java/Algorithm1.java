@@ -18,9 +18,9 @@ public class Algorithm1 {
 //        System.out.println(isTheSame);
 //    }
 
-    public static int [] getHash(File imageFile) throws IOException, InterruptedException {
-        //-----resize image
-        BufferedImage image = ImageIO.read(imageFile);
+
+	public static int [] getHash(BufferedImage image) throws IOException, InterruptedException {
+		//-----resize image
         BufferedImage resizedImage = Utils.resizeImage(image, 8, 8);
 
         //-----convert to gray image
@@ -37,6 +37,11 @@ public class Algorithm1 {
         int [] hashArray = getHashArray(pixels, medium);
 
         return hashArray;
+	}
+	
+    public static int [] getHash(File imageFile) throws IOException, InterruptedException {
+        BufferedImage image = ImageIO.read(imageFile);
+		return getHash(image);
     }
 
     public static boolean isSameImage(int countOfDifferentPosition){
