@@ -10,24 +10,24 @@ import java.io.IOException;
 //        http://habrahabr.ru/post/120562/
 public class Algorithm1 {
 
-    public static void run() throws IOException, InterruptedException {
-        int [] hash1 = getHash("images/1.jpg");
-        int [] hash2 = getHash("images/4.jpg");
-        int countOfDifferentPosition = Utils.getCountOfDifferentPosition(hash1, hash2);
-        boolean isTheSame = isSameImage(countOfDifferentPosition);
-        System.out.println(isTheSame);
-    }
+//    public static void run() throws IOException, InterruptedException {
+//        int [] hash1 = getHash("images/1.jpg");
+//        int [] hash2 = getHash("images/4.jpg");
+//        int countOfDifferentPosition = Utils.getCountOfDifferentPosition(hash1, hash2);
+//        boolean isTheSame = isSameImage(countOfDifferentPosition);
+//        System.out.println(isTheSame);
+//    }
 
-    public static int [] getHash(String img) throws IOException, InterruptedException {
+    public static int [] getHash(File imageFile) throws IOException, InterruptedException {
         //-----resize image
-        BufferedImage originalImage = ImageIO.read(new File(img));
-        BufferedImage resizeImage = Utils.resizeImage(originalImage, 8, 8);
+        BufferedImage image = ImageIO.read(imageFile);
+        BufferedImage resizedImage = Utils.resizeImage(image, 8, 8);
 
         //-----convert to gray image
-        BufferedImage grayImage = Utils.convertToGray(resizeImage);
+        resizedImage = Utils.convertToGray(resizedImage);
 
         //-----get medium pixels value
-        PixelGrabber pg = new PixelGrabber(grayImage, 0, 0, -1, -1, false);
+        PixelGrabber pg = new PixelGrabber(resizedImage, 0, 0, -1, -1, false);
         pg.grabPixels();
         int[] pixels = (int[])pg.getPixels();
 
@@ -39,7 +39,7 @@ public class Algorithm1 {
         return hashArray;
     }
 
-    private static boolean isSameImage(int countOfDifferentPosition){
+    public static boolean isSameImage(int countOfDifferentPosition){
         if(countOfDifferentPosition <= 10){
             return true;
         }

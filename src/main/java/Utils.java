@@ -28,8 +28,8 @@ public class Utils {
     public static BufferedImage convertToGray(BufferedImage originalImage){
         ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
         ColorConvertOp op = new ColorConvertOp(cs, null);
-        BufferedImage grayImage = op.filter(originalImage, null);
-        return grayImage;
+		op.filter(originalImage, originalImage);
+		return originalImage;
     }
 
     public static int[] getPixels(BufferedImage originalImage) throws InterruptedException {
