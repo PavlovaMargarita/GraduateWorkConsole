@@ -1,10 +1,5 @@
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +14,14 @@ public class Main {
 		File folder = new File("images/");
 		File[] listOfImages = folder.listFiles();
 
-		printImageAnalisys(listOfImages, image);
+		printImageAnalysis(listOfImages, image);
+
+        System.out.println();
+        for(int i = 0; i < 3; i++){
+            image = rotateImage(image);
+            printImageAnalysis(listOfImages, image);
+            System.out.println();
+        }
 		
 //        Algorithm3.run();
 
@@ -31,34 +33,33 @@ public class Main {
 //        cloudinary.privateDownload()
 
 //        FileUtils.copyURLToFile(URL, File)
-		ImageIO.write( ImageIO.read(inputImage), "jpg", new File("inputImage.jpg"));
-		BufferedImage rotatedImage = rotateImage(inputImage);
-		ImageIO.write(rotatedImage, "jpg", new File("1_1.jpg"));
+//		ImageIO.write( ImageIO.read(inputImage), "jpg", new File("inputImage.jpg"));
+//		BufferedImage rotatedImage = rotateImage(inputImage);
+//		ImageIO.write(rotatedImage, "jpg", new File("1_1.jpg"));
     }
 	
-	private static BufferedImage rotateImage(File imageFile) throws IOException {
+	private static BufferedImage rotateImage(BufferedImage image) throws IOException {
 		int angel = 90;
-		BufferedImage image = ImageIO.read(imageFile);
 		double sin = Math.abs(Math.sin(Math.toRadians(angel)));
         double cos = Math.abs(Math.cos(Math.toRadians(angel)));
 
-		int w = image.getWidth(null), h = image.getHeight(null);
+		int width = image.getWidth(null), height = image.getHeight(null);
 
-		int neww = (int) Math.floor(w*cos + h*sin);
-        int newh = (int) Math.floor(h*cos + w*sin);
+		int newWidth = (int) Math.floor(width*cos + height*sin);
+        int newHeight = (int) Math.floor(height*cos + width*sin);
 
-		int type = image.getType() == 0? BufferedImage.TYPE_INT_ARGB : image.getType();
-		BufferedImage bimg = new BufferedImage(neww, newh, type);
-		Graphics2D g = bimg.createGraphics();
+		int type = image.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : image.getType();
+		BufferedImage newImage = new BufferedImage(newWidth, newHeight, type);
+		Graphics2D g = newImage.createGraphics();
 
-		g.translate((neww-w)/2, (newh-h)/2);
-		g.rotate(Math.toRadians(angel), w/2, h/2);
+		g.translate((newWidth - width) / 2, (newHeight - height) / 2);
+		g.rotate(Math.toRadians(angel), width / 2, height / 2);
 		g.drawRenderedImage(image, null);
 		g.dispose();
-		return bimg;
+		return newImage;
 	}
 	
-	private static void printImageAnalisys(File [] listOfImages, BufferedImage inputImage) throws Exception {
+	private static void printImageAnalysis(File[] listOfImages, BufferedImage inputImage) throws Exception {
 		int[] inputImageHash1 = Algorithm1.getHash(inputImage);
 		int[] inputImageHash2 = Algorithm2.getHash(inputImage);
 		int[] inputImagePixelArray = Algorithm3.getPixels(inputImage);
