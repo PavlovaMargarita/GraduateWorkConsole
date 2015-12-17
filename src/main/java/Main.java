@@ -1,15 +1,13 @@
-import com.sun.org.apache.xpath.internal.SourceTree;
-import opencv.HistogramTest;
 import opencv.Test;
 import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.highgui.Highgui;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Main {
 
@@ -95,9 +93,15 @@ public class Main {
 	}
 
     private static void imageAnalysisByOpenCV(File[] listOfImages, BufferedImage inputImage) throws IOException {
+        Map<Double, String> map = new TreeMap<>();
         for (File image : listOfImages) {
-            System.out.print(image.getName() + "\t");
-            Test.isSameImage(inputImage, image);
+            double res = Test.isSameImage(inputImage, image);
+            map.put(res, image.getName());
         }
+
+        for(Map.Entry<Double, String> entry: map.entrySet()){
+            System.out.println(entry.getValue() + "\t" + entry.getKey());
+        }
+
     }
 }

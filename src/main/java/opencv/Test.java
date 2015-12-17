@@ -33,7 +33,7 @@ public class Test {
         return hist1;
     }
 
-    public static void isSameImage(BufferedImage baseImage1, File inputImage1) throws IOException {
+    public static double isSameImage(BufferedImage baseImage1, File inputImage1) throws IOException {
         BufferedImage baseImage = Utils.resizeImage(baseImage1, 100, 100);
         BufferedImage image = ImageIO.read(inputImage1);
         BufferedImage inputImage = Utils.resizeImage(image, 100, 100);
@@ -41,7 +41,7 @@ public class Test {
         Mat baseHist1 = getHist1(baseImage);
         Mat inputHist1 = getHist1(inputImage);
         double compare = Imgproc.compareHist(baseHist1, inputHist1, Imgproc.CV_COMP_CHISQR);
-        System.out.println("\t" + compare);
+        return compare;
     }
 }
 
