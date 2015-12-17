@@ -1,8 +1,7 @@
+import utils.Utils;
+
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorConvertOp;
 import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +12,7 @@ public class Algorithm1 {
 //    public static void run() throws IOException, InterruptedException {
 //        int [] hash1 = getHash("images/1.jpg");
 //        int [] hash2 = getHash("images/4.jpg");
-//        int countOfDifferentPosition = Utils.getCountOfDifferentPosition(hash1, hash2);
+//        int countOfDifferentPosition = utils.Utils.getCountOfDifferentPosition(hash1, hash2);
 //        boolean isTheSame = isSameImage(countOfDifferentPosition);
 //        System.out.println(isTheSame);
 //    }

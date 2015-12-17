@@ -1,3 +1,10 @@
+import com.sun.org.apache.xpath.internal.SourceTree;
+import opencv.HistogramTest;
+import opencv.Test;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.highgui.Highgui;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -6,13 +13,20 @@ import java.io.IOException;
 
 public class Main {
 
+    static{ System.loadLibrary(Core.NATIVE_LIBRARY_NAME); }
+
     public static void main(String[] args) throws Exception {
-		
+        new DetectFaceDemo().run();
+
 		File inputImage = new File("1.jpg");
 		BufferedImage image = ImageIO.read(inputImage);
-		
+
 		File folder = new File("images/");
 		File[] listOfImages = folder.listFiles();
+
+        System.out.println("OpenCV -----");
+        imageAnalysisByOpenCV(listOfImages, image);
+        System.out.println("OpenCV -----");
 
 		printImageAnalysis(listOfImages, image);
 
@@ -22,7 +36,7 @@ public class Main {
             printImageAnalysis(listOfImages, image);
             System.out.println();
         }
-		
+
 //        Algorithm3.run();
 
 //        Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
@@ -63,20 +77,27 @@ public class Main {
 		int[] inputImageHash1 = Algorithm1.getHash(inputImage);
 		int[] inputImageHash2 = Algorithm2.getHash(inputImage);
 		int[] inputImagePixelArray = Algorithm3.getPixels(inputImage);
-		
+
 		for (File image : listOfImages) {
 			if (image.isFile()) {
 				System.out.print(image.getName() + "\t");
 				int[] imageHash = Algorithm1.getHash(image);
-				boolean isSame = Algorithm1.isSameImage(Utils.getCountOfDifferentPosition(inputImageHash1, imageHash));
+				boolean isSame = Algorithm1.isSameImage(utils.Utils.getCountOfDifferentPosition(inputImageHash1, imageHash));
 				System.out.print("| " + isSame + " |");
 				imageHash = Algorithm2.getHash(image);
-				isSame = Algorithm2.isSameImage(Utils.getCountOfDifferentPosition(inputImageHash2, imageHash));
+				isSame = Algorithm2.isSameImage(utils.Utils.getCountOfDifferentPosition(inputImageHash2, imageHash));
 				System.out.print("| " + isSame + " |");
 				imageHash = Algorithm3.getPixels(image);
 				isSame = Algorithm3.isSameImage(Algorithm3.getMeanSquare(inputImagePixelArray, imageHash));
 				System.out.println("| " + isSame + " |");
-			}
+            }
 		}
 	}
+
+    private static void imageAnalysisByOpenCV(File[] listOfImages, BufferedImage inputImage) throws IOException {
+        for (File image : listOfImages) {
+            System.out.print(image.getName() + "\t");
+            Test.isSameImage(inputImage, image);
+        }
+    }
 }

@@ -1,10 +1,11 @@
+import utils.Utils;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
 import java.io.File;
-import java.io.IOException;
 
 public class Algorithm2 {
 
@@ -28,7 +29,7 @@ public class Algorithm2 {
 //    public static void run() throws Exception {
 //        int [] hash1 = getHash("images/1.jpg");
 //        int [] hash2 = getHash("images/2.jpg");
-//        int difCount = Utils.getCountOfDifferentPosition(hash1, hash2);
+//        int difCount = utils.Utils.getCountOfDifferentPosition(hash1, hash2);
 //        System.out.println(difCount);
 //        boolean isTheSame = isSameImage(difCount);
 //        System.out.println(isTheSame);

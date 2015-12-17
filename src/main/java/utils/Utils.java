@@ -1,3 +1,5 @@
+package utils;
+
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
