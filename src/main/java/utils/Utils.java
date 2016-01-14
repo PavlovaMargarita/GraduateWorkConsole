@@ -40,4 +40,19 @@ public class Utils {
         int[] pixels = (int[])pg.getPixels();
         return pixels;
     }
+
+    public static int[] getGrayPixels(BufferedImage originalImage) throws InterruptedException {
+        int [] pixels = new int [originalImage.getWidth() * originalImage.getHeight()];
+        for(int i = 0; i < originalImage.getWidth(); i++){
+            for(int j = 0; j < originalImage.getHeight(); j++){
+                int p = originalImage.getRGB(i, j);
+                int r = (p>>16)&0xff;
+                int g = (p>>8)&0xff;
+                int b = p&0xff;
+                int avg = (r+g+b)/3;
+                pixels[i * j + j] = avg;
+            }
+        }
+        return pixels;
+    }
 }

@@ -87,7 +87,14 @@ public class Main {
 				System.out.print("| " + isSame + " |");
 				imageHash = Algorithm3.getPixels(image);
 				isSame = Algorithm3.isSameImage(Algorithm3.getMeanSquare(inputImagePixelArray, imageHash));
-				System.out.println("| " + isSame + " |");
+				System.out.print("| " + isSame + " |");
+                isSame = QualityIndexAlgorithm.getSimilarityCoefficient(inputImage, image);
+                System.out.print("| " + isSame + " |");
+
+//                PcaSift.aplicar(inputImage, image);
+
+                isSame = CBIRAlgorithm.sC(inputImage, image);
+                System.out.println("| " + isSame + " |");
             }
 		}
 	}
