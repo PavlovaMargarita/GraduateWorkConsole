@@ -88,19 +88,19 @@ public class Main {
 				imageHash = Algorithm3.getPixels(image);
 				isSame = Algorithm3.isSameImage(Algorithm3.getMeanSquare(inputImagePixelArray, imageHash));
 				System.out.print("| " + isSame + " |");
-                isSame = QualityIndexAlgorithm.getSimilarityCoefficient(inputImage, image);
+                isSame = MuDispAlgorithm.getSimilarityCoefficient(inputImage, image);
                 System.out.print("| " + isSame + " |");
 
 //                PcaSift.aplicar(inputImage, image);
 
-                isSame = CBIRAlgorithm.sC(inputImage, image);
+                isSame = CovarianceAlgorithm.sC(inputImage, image);
                 System.out.println("| " + isSame + " |");
             }
 		}
 	}
 
     private static void imageAnalysisByOpenCV(File[] listOfImages, BufferedImage inputImage) throws IOException {
-        Map<Double, String> map = new TreeMap<>();
+        Map<Double, String> map = new TreeMap<Double, String>();
         for (File image : listOfImages) {
             double res = Test.isSameImage(inputImage, image);
             map.put(res, image.getName());
